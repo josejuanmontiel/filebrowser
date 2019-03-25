@@ -48,6 +48,11 @@ func getAuthentication(flags *pflag.FlagSet) (settings.AuthMethod, auth.Auther) 
 	method := settings.AuthMethod(mustGetString(flags, "auth.method"))
 
 	var auther auth.Auther
+
+	if method == auth.MethodAnotherAuth {
+		auther = &auth.AnotherAuth{}
+	}
+
 	if method == auth.MethodProxyAuth {
 		header := mustGetString(flags, "auth.header")
 		if header == "" {
